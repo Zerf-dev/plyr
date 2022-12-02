@@ -1720,7 +1720,7 @@ const controls = {
     // Navigate through menus via arrow keys and space
     on.call(this, menuItem, 'keydown keyup', event => {
       // We only care about space and ⬆️ ⬇️️ ➡️
-      if (!['Space', 'ArrowUp', 'ArrowDown', 'ArrowRight'].includes(event.key)) {
+      if (![' ', 'ArrowUp', 'ArrowDown', 'ArrowRight'].includes(event.key)) {
         return;
       }
 
@@ -1735,11 +1735,11 @@ const controls = {
       const isRadioButton = matches(menuItem, '[role="menuitemradio"]');
 
       // Show the respective menu
-      if (!isRadioButton && ['Space', 'ArrowRight'].includes(event.key)) {
+      if (!isRadioButton && [' ', 'ArrowRight'].includes(event.key)) {
         controls.showMenuPanel.call(this, type, true);
       } else {
         let target;
-        if (event.key !== 'Space') {
+        if (event.key !== ' ') {
           if (event.key === 'ArrowDown' || isRadioButton && event.key === 'ArrowRight') {
             target = menuItem.nextElementSibling;
             if (!is.element(target)) {
@@ -1804,7 +1804,7 @@ const controls = {
       }
     });
     this.listeners.bind(menuItem, 'click keyup', event => {
-      if (is.keyboardEvent(event) && event.key !== 'Space') {
+      if (is.keyboardEvent(event) && event.key !== ' ') {
         return;
       }
       event.preventDefault();
@@ -4771,7 +4771,7 @@ class Listeners {
       // We have to bind to keyup otherwise Firefox triggers a click when a keydown event handler shifts focus
       // https://bugzilla.mozilla.org/show_bug.cgi?id=1220143
       this.bind(elements.buttons.settings, 'keyup', event => {
-        if (!['Space', 'Enter'].includes(event.key)) {
+        if (![' ', 'Enter'].includes(event.key)) {
           return;
         }
 
@@ -5053,13 +5053,13 @@ class Listeners {
         if (focused !== seek && matches(focused, editable)) {
           return;
         }
-        if (event.key === 'Space' && matches(focused, 'button, [role^="menuitem"]')) {
+        if (event.key === ' ' && matches(focused, 'button, [role^="menuitem"]')) {
           return;
         }
       }
 
       // Which keys should we prevent default
-      const preventDefault = ['Space', 'ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'c', 'f', 'k', 'l', 'm'];
+      const preventDefault = [' ', 'ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'c', 'f', 'k', 'l', 'm'];
 
       // If the key is found prevent default (e.g. prevent scrolling for arrows)
       if (preventDefault.includes(key)) {
@@ -5081,7 +5081,7 @@ class Listeners {
             seekByIncrement(parseInt(key, 10));
           }
           break;
-        case 'Space':
+        case ' ':
         case 'k':
           if (!repeat) {
             silencePromise(player.togglePlay());
