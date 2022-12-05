@@ -14624,7 +14624,7 @@ typeof navigator === "object" && (function () {
       const inputIsValid = is.number(input) && input > 0;
 
       // Set
-      this.media.currentTime = inputIsValid ? Math.min(Math.floor(input), Math.floor(this.duration) - 1) : 0;
+      this.media.currentTime = inputIsValid ? Math.floor(Math.min(input, this.duration - 1.5)) : 0;
 
       // Logging
       this.debug.log(`Seeking to ${this.currentTime} seconds`);
