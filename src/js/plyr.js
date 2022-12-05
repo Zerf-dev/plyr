@@ -472,7 +472,7 @@ class Plyr {
     const inputIsValid = is.number(input) && input > 0;
 
     // Set
-    this.media.currentTime = inputIsValid ? Math.min(input, this.duration) : 0;
+    this.media.currentTime = inputIsValid ? Math.min(Math.floor(input), Math.floor(this.duration)) : 0;
 
     // Logging
     this.debug.log(`Seeking to ${this.currentTime} seconds`);
